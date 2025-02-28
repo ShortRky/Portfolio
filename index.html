@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Development Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Personal Development Tracker</h1>
+    <button id="theme-toggle">Switch to Dark Mode</button>
+    <div id="auth-section">
+      <h2>Sign Up / Sign In</h2>
+      <input type="text" id="username" placeholder="Username">
+      <button id="signup-btn">Sign Up</button>
+      <button id="signin-btn">Sign In</button>
+    </div>
+    <div id="dashboard" class="hidden">
+      <h2>Welcome, <span id="user-greeting"></span>!</h2>
+      <div id="goal-section">
+        <h3>Your Goals</h3>
+        <input type="text" id="new-goal" placeholder="Add a new goal">
+        <button id="add-goal-btn">Add Goal</button>
+        <ul id="goal-list"></ul>
+      </div>
+      <div id="progress-section">
+        <h3>Progress</h3>
+        <p>Points: <span id="points">0</span></p>
+        <p>Level: <span id="level">1</span></p>
+        <p>Coins: <span id="coins">0</span></p>
+      </div>
+      <div id="shop-section">
+        <h3>Shop</h3>
+        <button id="buy-coins-btn">Buy 10 Coins (100 Points)</button>
+      </div>
+      <div id="quest-section">
+        <h3>Quests</h3>
+        <ul id="quest-list"></ul>
+      </div>
+      <div id="community-section">
+        <h3>Community</h3>
+        <textarea id="share-progress" placeholder="Share your progress..."></textarea>
+        <button id="share-btn">Share</button>
+        <div id="shared-messages"></div>
+      </div>
+      <div id="chatbox">
+        <h3>Chat</h3>
+        <div id="chat-messages"></div>
+        <input type="text" id="chat-input" placeholder="Type a message...">
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
