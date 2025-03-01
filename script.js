@@ -1,193 +1,184 @@
-// DOM Elements
-const authSection = document.getElementById('auth-section');
-const dashboard = document.getElementById('dashboard');
-const usernameInput = document.getElementById('username');
-const signupBtn = document.getElementById('signup-btn');
-const signinBtn = document.getElementById('signin-btn');
-const userGreeting = document.getElementById('user-greeting');
-const newGoalInput = document.getElementById('new-goal');
-const addGoalBtn = document.getElementById('add-goal-btn');
-const goalList = document.getElementById('goal-list');
-const pointsDisplay = document.getElementById('points');
-const levelDisplay = document.getElementById('level');
-const coinsDisplay = document.getElementById('coins');
-const buyCoinsBtn = document.getElementById('buy-coins-btn');
-const questList = document.getElementById('quest-list');
-const shareProgressInput = document.getElementById('share-progress');
-const shareBtn = document.getElementById('share-btn');
-const sharedMessages = document.getElementById('shared-messages');
-const chatMessages = document.getElementById('chat-messages');
-const chatInput = document.getElementById('chat-input');
-const sendBtn = document.getElementById('send-btn');
-const themeToggle = document.getElementById('theme-toggle');
+document.addEventListener('DOMContentLoaded', () => {
+    // =====================
+    // Data Configuration
+    // =====================
+    const portfolioData = {
+        skills: [
+            'Web Development', 'UI/UX Design', 'Project Management', 'Technical Writing',
+            'Public Speaking', 'Teamwork', 'Problem Solving', 'Critical Thinking',
+            'Time Management', 'Leadership', 'Creativity', 'Adaptability', 'Communication',
+            'Attention to Detail', 'Self-Motivation', 'Organization', 'Research',
+            'Analytical Skills', 'Interpersonal Skills', 'Conflict Resolution',
+            'Decision Making', 'Negotiation', 'Networking', 'Presentation Skills',
+            'Sales', 'Marketing', 'Customer Service', 'Social Media', 'Content Management',
+            'Data Analysis', 'Database Management', 'Programming', 'Software Development',
+            'Game Development', 'Cybersecurity'
+        ],
+        achievements: [
+            'Built and launched a personal portfolio website',
+            'Completed a cybersecurity certification',
+            'Led a successful content creation project',
+            'Developed a personal game in Unity',
+            'Created and managed a social media marketing campaign'
+        ],
+        projects: [
+            {
+                title: 'Open Source Clock',
+                brief: 'Interactive time visualization tool',
+                details: 'Built with HTML Canvas and JavaScript',
+                url: 'https://shortrky.github.io/Clock-website/',
+                tech: ['HTML5', 'CSS3', 'JavaScript', 'Canvas API']
+            },
+            {
+                title: 'Random Math Generator',
+                brief: 'Educational math problem generator',
+                details: 'Dynamic problem creation with solution validation',
+                url: 'https://shortrky.github.io/Random-Math-Gen/',
+                tech: ['JavaScript', 'Algorithm Design', 'UI/UX']
+            },
+            {
+                title: 'Demo Site Project',
+                brief: 'Example of my Skills',
+                details: 'Click ME!!',
+                url: 'https://shortrky.github.io/W.A.V.E/',
+                tech: ['Responsive Design', 'CSS Animations', 'DOM Manipulation']
+            }
+        ],
+        hobbies: [
+            'Photography', 'Open Source Contributing', 'Creative Writing',
+            'Drawing', 'Gaming', 'Content Creation', 'Watching Anime',
+            'Reading', 'Learning New Skills', 'Cooking', 'Working Out',
+            'Personal Projects'
+        ]
+    };
 
-// User Data
-let currentUser = null;
-let users = JSON.parse(localStorage.getItem('users')) || {};
+    // =====================
+    // DOM Elements
+    // =====================
+    const domRef = {
+        skillsGrid: document.querySelector('.skills-grid'),
+        achievementsGrid: document.querySelector('.achievements-grid'),
+        projectGrid: document.querySelector('.project-grid'),
+        hobbiesContainer: document.querySelector('.hobbies-container'),
+        navLinks: document.querySelectorAll('.nav-links a')
+    };
 
-// Sign Up
-signupBtn.addEventListener('click', () => {
-  const username = usernameInput.value.trim();
-  if (username) {
-    if (!users[username]) {
-      users[username] = { goals: [], points: 0, level: 1, coins: 0, sharedMessages: [], chatMessages: [] };
-      localStorage.setItem('users', JSON.stringify(users));
-      currentUser = username;
-      showDashboard();
-    } else {
-      alert('Username already exists!');
-    }
-  }
-});
+    // =====================
+    // Utility Functions
+    // =====================
+    const createElement = (tag, className, content) => {
+        const element = document.createElement(tag);
+        element.className = className;
+        if (content) element.innerHTML = content;
+        return element;
+    };
 
-// Sign In
-signinBtn.addEventListener('click', () => {
-  const username = usernameInput.value.trim();
-  if (users[username]) {
-    currentUser = username;
-    showDashboard();
-  } else {
-    alert('User not found!');
-  }
-});
+    const animateOnScroll = (elements, threshold = 0.1) => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        }, { threshold });
 
-// Show Dashboard
-function showDashboard() {
-  authSection.classList.add('hidden');
-  dashboard.classList.remove('hidden');
-  userGreeting.textContent = currentUser;
-  loadUserData();
-}
+        elements.forEach(element => observer.observe(element));
+    };
 
-// Load User Data
-function loadUserData() {
-  const user = users[currentUser];
-  goalList.innerHTML = '';
-  user.goals.forEach((goal, index) => {
-    const li = document.createElement('li');
-    li.textContent = goal;
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.addEventListener('click', () => deleteGoal(index));
-    li.appendChild(deleteBtn);
-    const completeBtn = document.createElement('button');
-    completeBtn.textContent = 'Complete';
-    completeBtn.addEventListener('click', () => completeGoal(index));
-    li.appendChild(completeBtn);
-    goalList.appendChild(li);
-  });
-  pointsDisplay.textContent = user.points;
-  levelDisplay.textContent = user.level;
-  coinsDisplay.textContent = user.coins;
-  sharedMessages.innerHTML = user.sharedMessages.map(msg => `<p>${msg}</p>`).join('');
-  chatMessages.innerHTML = user.chatMessages.map(msg => `<p>${msg}</p>`).join('');
-  loadQuests();
-}
+    // =====================
+    // Content Population
+    // =====================
+    const populateSkills = () => {
+        domRef.skillsGrid.append(...portfolioData.skills.map(skill => {
+            const card = createElement('div', 'skill-card', `<h3>${skill}</h3>`);
+            card.style.setProperty('--hue', Math.random() * 360);
+            return card;
+        }));
+    };
 
-// Add Goal
-addGoalBtn.addEventListener('click', () => {
-  const goal = newGoalInput.value.trim();
-  if (goal) {
-    users[currentUser].goals.push(goal);
-    localStorage.setItem('users', JSON.stringify(users));
-    newGoalInput.value = '';
-    loadUserData();
-  }
-});
+    const populateAchievements = () => {
+        domRef.achievementsGrid.append(...portfolioData.achievements.map(achievement => {
+            const card = createElement('div', 'achievement-card', `<p>${achievement}</p>`);
+            card.style.animationDelay = `${Math.random() * 0.5}s`;
+            return card;
+        }));
+    };
 
-// Delete Goal
-function deleteGoal(index) {
-  users[currentUser].goals.splice(index, 1);
-  localStorage.setItem('users', JSON.stringify(users));
-  loadUserData();
-}
+    const populateProjects = () => {
+        domRef.projectGrid.append(...portfolioData.projects.map(project => {
+            const card = createElement('div', 'project-card');
+            card.innerHTML = `
+                <a href="${project.url}" target="_blank" rel="noopener noreferrer" class="project-link">
+                    <div class="project-content">
+                        <div class="project-brief">
+                            <h3>${project.title}</h3>
+                            <p>${project.brief}</p>
+                            <div class="tech-stack">${project.tech.map(t => `<span>${t}</span>`).join('')}</div>
+                        </div>
+                        <div class="project-hover">
+                            <p>${project.details}</p>
+                            <div class="project-links">
+                                <span class="demo-link">Live Demo →</span>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `;
+            return card;
+        }));
+    };
 
-// Complete Goal
-function completeGoal(index) {
-  const user = users[currentUser];
-  user.points += 10; // Award points for completing a goal
-  if (user.points >= 100) { // Level up every 100 points
-    user.level += 1;
-    user.points = 0;
-  }
-  user.goals.splice(index, 1); // Remove the completed goal
-  localStorage.setItem('users', JSON.stringify(users));
-  loadUserData();
-}
+    const populateHobbies = () => {
+        domRef.hobbiesContainer.append(...portfolioData.hobbies.map(hobby => {
+            const item = createElement('div', 'hobby-item', hobby);
+            item.style.setProperty('--hue', Math.random() * 360);
+            return item;
+        }));
+    };
 
-// Buy Coins
-buyCoinsBtn.addEventListener('click', () => {
-  const user = users[currentUser];
-  if (user.points >= 100) {
-    user.points -= 100;
-    user.coins += 10;
-    localStorage.setItem('users', JSON.stringify(users));
-    loadUserData();
-  } else {
-    alert('Not enough points!');
-  }
-});
+    // =====================
+    // Event Handlers
+    // =====================
+    const handleSmoothScroll = (e) => {
+        e.preventDefault();
+        const targetId = e.target.getAttribute('href');
+        document.querySelector(targetId).scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    };
 
-// Load Quests
-function loadQuests() {
-  const user = users[currentUser];
-  questList.innerHTML = '';
-  const quests = [
-    { description: 'Complete 3 goals', reward: 50, completed: false },
-    { description: 'Reach level 2', reward: 100, completed: user.level >= 2 },
-    { description: 'Earn 200 points', reward: 150, completed: user.points >= 200 }
-  ];
-  quests.forEach((quest, index) => {
-    const li = document.createElement('li');
-    li.textContent = quest.description;
-    if (quest.completed) {
-      li.textContent += ' (Completed)';
-    } else {
-      const completeBtn = document.createElement('button');
-      completeBtn.textContent = 'Complete';
-      completeBtn.addEventListener('click', () => completeQuest(index, quest.reward));
-      li.appendChild(completeBtn);
-    }
-    questList.appendChild(li);
-  });
-}
+    const initEventListeners = () => {
+        domRef.navLinks.forEach(link => {
+            link.addEventListener('click', handleSmoothScroll);
+        });
 
-// Complete Quest
-function completeQuest(index, reward) {
-  const user = users[currentUser];
-  user.coins += reward;
-  localStorage.setItem('users', JSON.stringify(users));
-  loadUserData();
-}
+        window.addEventListener('scroll', () => {
+            document.documentElement.style.setProperty(
+                '--scroll-pos',
+                window.pageYOffset / (document.body.offsetHeight - window.innerHeight)
+            );
+        });
+    };
 
-// Share Progress
-shareBtn.addEventListener('click', () => {
-  const message = shareProgressInput.value.trim();
-  if (message) {
-    users[currentUser].sharedMessages.push(`${currentUser}: ${message}`);
-    localStorage.setItem('users', JSON.stringify(users));
-    shareProgressInput.value = '';
-    loadUserData();
-  }
-});
+    // =====================
+    // Initialization
+    // =====================
+    const initPortfolio = () => {
+        populateSkills();
+        populateAchievements();
+        populateProjects();
+        populateHobbies();
+        initEventListeners();
+        
+        animateOnScroll([
+            ...domRef.skillsGrid.children,
+            ...domRef.achievementsGrid.children,
+            ...domRef.projectGrid.children,
+            ...domRef.hobbiesContainer.children
+        ]);
+    };
 
-// Send Chat Message
-sendBtn.addEventListener('click', () => {
-  const message = chatInput.value.trim();
-  if (message) {
-    users[currentUser].chatMessages.push(`${currentUser}: ${message}`);
-    localStorage.setItem('users', JSON.stringify(users));
-    chatInput.value = '';
-    loadUserData();
-  }
-});
-
-// Dark Theme Toggle
-themeToggle.addEventListener('click', () => {
-  document.body.classList.toggle('dark-mode');
-  if (document.body.classList.contains('dark-mode')) {
-    themeToggle.textContent = 'Switch to Light Mode';
-  } else {
-    themeToggle.textContent = 'Switch to Dark Mode';
-  }
+    // Start the battle!
+    initPortfolio();
 });

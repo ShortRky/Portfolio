@@ -1,57 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Development Tracker</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="container">
-    <h1>Personal Development Tracker</h1>
-    <button id="theme-toggle">Switch to Dark Mode</button>
-    <div id="auth-section">
-      <h2>Sign Up / Sign In</h2>
-      <input type="text" id="username" placeholder="Username">
-      <button id="signup-btn">Sign Up</button>
-      <button id="signin-btn">Sign In</button>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#achievements">Achievements</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#hobbies">Hobbies</a></li>
+        </ul>
+    </nav>
+
+    <div class="profile-header">
+        <div class="profile-container">
+            <img src="assets/ProfilePicture.jpeg" alt="Your Name" class="profile-photo">
+        </div>
     </div>
-    <div id="dashboard" class="hidden">
-      <h2>Welcome, <span id="user-greeting"></span>!</h2>
-      <div id="goal-section">
-        <h3>Your Goals</h3>
-        <input type="text" id="new-goal" placeholder="Add a new goal">
-        <button id="add-goal-btn">Add Goal</button>
-        <ul id="goal-list"></ul>
-      </div>
-      <div id="progress-section">
-        <h3>Progress</h3>
-        <p>Points: <span id="points">0</span></p>
-        <p>Level: <span id="level">1</span></p>
-        <p>Coins: <span id="coins">0</span></p>
-      </div>
-      <div id="shop-section">
-        <h3>Shop</h3>
-        <button id="buy-coins-btn">Buy 10 Coins (100 Points)</button>
-      </div>
-      <div id="quest-section">
-        <h3>Quests</h3>
-        <ul id="quest-list"></ul>
-      </div>
-      <div id="community-section">
-        <h3>Community</h3>
-        <textarea id="share-progress" placeholder="Share your progress..."></textarea>
-        <button id="share-btn">Share</button>
-        <div id="shared-messages"></div>
-      </div>
-      <div id="chatbox">
-        <h3>Chat</h3>
-        <div id="chat-messages"></div>
-        <input type="text" id="chat-input" placeholder="Type a message...">
-        <button id="send-btn">Send</button>
-      </div>
-    </div>
-  </div>
-  <script src="script.js"></script>
+
+    <section id="home" class="intro-section">
+        <div class="intro-content">
+            <h1 class="animated-text">Hi, I'm <span class="highlight">N</span></h1>
+            <p class="animated-subtext">Web Developer, Creative Problem Solver, Student</p>
+        </div>
+    </section>
+
+    <section id="skills" class="skills-section">
+        <h2>Skills</h2>
+        <div class="skills-grid">
+            <!-- JS will populate this -->
+        </div>
+    </section>
+
+    <section id="achievements" class="achievements-section">
+        <h2>Achievements</h2>
+        <div class="achievements-grid">
+            <!-- JS will populate this -->
+        </div>
+    </section>
+
+    <section id="projects" class="projects-section">
+        <h2>Featured Projects</h2>
+        <div class="project-grid">
+            <!-- JS will populate this -->
+        </div>
+    </section>
+
+    <section id="hobbies" class="hobbies-section">
+        <h2>My Free Time Activities</h2>
+        <div class="hobbies-container">
+            <!-- JS will populate this -->
+        </div>
+    </section>
+
+    <script src="script.js"></script>
 </body>
 </html>
