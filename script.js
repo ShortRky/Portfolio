@@ -42,7 +42,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 details: 'Click ME!!',
                 url: 'https://shortrky.github.io/W.A.V.E/',
                 tech: ['Responsive Design', 'CSS Animations', 'DOM Manipulation']
-            }
+            },
+            {
+                title: 'SkillSync',
+                brief: 'Just another example',
+                details: 'Click to See!',
+                url: 'https://shortrky.github.io/Animated---Webscreen-saver/',
+                tech: ['Responsive Designs', 'Smooth Animation', 'Simple']
+            }       
         ],
         hobbies: [
             'Photography', 'Open Source Contributing', 'Creative Writing',
