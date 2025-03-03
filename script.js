@@ -49,7 +49,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 details: 'Click to See!',
                 url: 'https://shortrky.github.io/Animated---Webscreen-saver/',
                 tech: ['Responsive Designs', 'Smooth Animation', 'Simple']
-            }       
+            },    
+            {
+                title: 'Functions explanations',
+                brief: 'Explains functions',
+                details: 'Find out',
+                url: 'https://shortrky.github.io/Functions/',
+                tech: ['in-depth', 'Responsive Designs', 'Simple']
+            }
         ],
         hobbies: [
             'Photography', 'Open Source Contributing', 'Creative Writing',
