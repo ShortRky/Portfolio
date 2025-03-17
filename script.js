@@ -56,7 +56,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 details: 'Find out',
                 url: 'https://shortrky.github.io/Functions/',
                 tech: ['in-depth', 'Responsive Designs', 'Simple']
-            }
+            },
+            {
+                title: 'Example Website Carusel',
+                brief: 'Simple Carusel',
+                details: 'Click to see',
+                url: 'https://github.com/ShortRky/NIIIISHAAA',
+                tech: ['Responsive Designs', 'Simple', 'Easy to use']
+            },
+
         ],
         hobbies: [
             'Photography', 'Open Source Contributing', 'Creative Writing',
